@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { UsageTableComponent } from './usage-table/usage-table.component';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'qua2';
+  title = 'qab';
+
+  @ViewChild(UsageTableComponent) table!: UsageTableComponent;
+
+  protected onClick(): void {
+    console.log(this.table.form.getRawValue(), this.table.form.valid);
+
+  }
+
 }

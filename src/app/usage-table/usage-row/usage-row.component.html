@@ -1,0 +1,22 @@
+<td>
+    <qab-input [control]="usageContols.was" type="text" />
+</td>
+<td>
+    <qab-input [control]="usageContols.wofur" type="text" />
+</td>
+<td>
+    <qab-input [control]="usageContols.netto" type="number" />
+</td>
+<td>
+    <qab-dropdown [control]="usageContols.ust" [data]="dropdownData" />
+</td>
+<td>
+    <qab-input [control]="usageContols.calculatedUst" type="number" />
+</td>
+<td>
+    <qab-input [control]="usageContols.brutto" type="number" />
+</td>
+<td>
+    <qab-checkbox [control]="form.controls.isUstCorrect" />
+</td>
+<td><button (click)="this.remove.emit()">Zeile Löschen</button></td>

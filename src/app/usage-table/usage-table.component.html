@@ -1,0 +1,22 @@
+<button (click)="addRow()">Zeile hinzufügen</button>
+<table>
+    <tr>
+        <th>
+            Was?
+        </th>
+        <th>
+            Wofür?
+        </th>
+        <th>Betrag Netto</th>
+        <th>USt</th>
+        <th>
+            errechnete USt
+        </th>
+        <th>Betrag Brutto</th>
+        <th>Steuern Stimmen?</th>
+        <th></th>
+    </tr>
+    <tbody>
+        <tr usage-row *ngFor="let control of form.controls, index as i" [form]="control" (remove)="removeRow(i)"></tr>
+    </tbody>
+</table>

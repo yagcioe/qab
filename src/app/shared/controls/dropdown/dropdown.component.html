@@ -1,0 +1,5 @@
+<mat-form-field>
+    <mat-select [formControl]="control">
+        <mat-option *ngFor="let pair of data" [value]="pair.key">{{pair.value}}</mat-option>
+    </mat-select>
+</mat-form-field>
