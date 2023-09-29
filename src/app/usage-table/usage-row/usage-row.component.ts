@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { buffer, merge } from 'rxjs';
+import { distinct, merge } from 'rxjs';
+import { ValidateableComponent } from 'src/app/shared/classes/validateable-component.interface';
 import { KeyValue } from 'src/app/shared/key-value.model';
 import { FinanceUtil } from 'src/app/shared/utils/finance.util';
-import { UsageRowFormModel } from './usage-row.model';
+import { UsageRowFormModel, UsageRowModel } from './usage-row.model';
 
 @Component({
   selector: '[usage-row]',
@@ -11,7 +12,6 @@ import { UsageRowFormModel } from './usage-row.model';
   styleUrls: ['./usage-row.component.scss']
 })
 export class UsageRowComponent implements OnInit {
-
   protected dropdownData: KeyValue<number, string>[] = [{ key: 0, value: "0%" }, { key: 0.07, value: "7%" }, { key: 0.19, value: "19%" },]
 
   protected get usageContols() {
@@ -28,7 +28,7 @@ export class UsageRowComponent implements OnInit {
     this.form.statusChanges.subscribe(status => console.log('row', status))
   }
 
-  public trackUst(): void {
+  private trackUst(): void {
     this.usageContols.brutto.valueChanges.subscribe(() => {
       const ust = this.usageContols.ust.getRawValue();
       const brutto = this.usageContols.brutto.getRawValue();
@@ -53,7 +53,7 @@ export class UsageRowComponent implements OnInit {
         const ust = this.usageContols.ust.getRawValue();
         const netto = this.usageContols.netto.getRawValue();
         const brutto = this.usageContols.brutto.getRawValue();
-
+        console.log("change");
         if (ust !== null && netto !== null) {
           this.usageContols.calculatedUst.patchValue(FinanceUtil.calcUstNominalFromNetto(netto, ust))
           return;
@@ -65,7 +65,7 @@ export class UsageRowComponent implements OnInit {
       })
   }
 
-  public trackUstCorrect(): void {
+  private trackUstCorrect(): void {
     this.form.controls.isUstCorrect.valueChanges.subscribe(checked => {
       const controls: (keyof FormGroup<UsageRowFormModel>['controls']['usageModel']['controls'])[] = [
         'brutto', 'netto', 'ust', 'was', 'wofur'
@@ -82,4 +82,6 @@ export class UsageRowComponent implements OnInit {
 
     })
   }
+
+
 }

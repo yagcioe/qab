@@ -10,13 +10,11 @@ import { UsageModel, UsageRowFormModel } from './usage-row/usage-row.model';
   styleUrls: ['./usage-table.component.scss']
 })
 export class UsageTableComponent {
-
   public form: FormArray<FormGroup<UsageRowFormModel>> = new FormArray<FormGroup<UsageRowFormModel>>([], CustomValidators.childrenValid);
 
   public ngOnInit() {
-    this.form.statusChanges.subscribe(status => console.log('table', status))
+    this.addRow();
   }
-
 
   protected addRow() {
     const group = new FormGroup<UsageRowFormModel>({
@@ -34,9 +32,15 @@ export class UsageTableComponent {
       isUstCorrect: new FormControl<boolean>(false, { nonNullable: true, validators: Validators.requiredTrue })
     }, CustomValidators.childrenValid);
 
-    console.log(this.form.errors)
     this.form.controls.push(group);
     this.form.updateValueAndValidity();
+  }
+
+  protected checkValidty(): void {
+    this.form.updateValueAndValidity();
+    console.log(!this.form.invalid)
+    console.log(this.form.controls);
+
   }
 
   protected removeRow(index: number) {
