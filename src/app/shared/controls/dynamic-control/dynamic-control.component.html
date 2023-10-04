@@ -1,0 +1,6 @@
+<ng-container [ngSwitch]="model.type">
+    <qab-checkbox *ngSwitchCase="DynamicControlType.Checkbox" [control]="control" />
+    <qab-dropdown *ngSwitchCase="DynamicControlType.Dropdown" [control]="control"
+        [data]="model.dropdownData??[]" />
+    <qab-input *ngSwitchDefault [type]="model.type" [control]="control" />
+</ng-container>

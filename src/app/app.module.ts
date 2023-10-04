@@ -16,6 +16,7 @@ import { RadioButtonGroupComponent } from './shared/controls/radio-button-group/
 import { UsageRowComponent } from './usage-table/usage-row/usage-row.component';
 import { UsageTableComponent } from './usage-table/usage-table.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { DynamicControlComponent } from './shared/controls/dynamic-control/dynamic-control.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MatRadioModule } from '@angular/material/radio';
     InputComponent,
     CheckboxComponent,
     AdvanceRadioGroupComponent,
-    RadioButtonGroupComponent],
+    RadioButtonGroupComponent,
+    DynamicControlComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { TableColumnModel } from '../shared/components/table/table-column.model';
+import { DynamicControlType } from '../shared/controls/dynamic-control/dynamic-control-type.enum';
 import { FormGroupModel } from '../shared/form-group.model';
 import { CustomValidators } from '../shared/utils/cusotm-validators';
 import { UsageModel, UsageRowFormModel } from './usage-row/usage-row.model';
@@ -10,6 +12,18 @@ import { UsageModel, UsageRowFormModel } from './usage-row/usage-row.model';
   styleUrls: ['./usage-table.component.scss']
 })
 export class UsageTableComponent {
+
+
+  protected tableData: TableColumnModel<FormGroup<UsageRowFormModel>, any>[] = [
+    { title: 'Was?', controlName: 'was', controlModel: { type: DynamicControlType.Text } },
+    { title: 'Wofür?', controlName: 'wofur', controlModel: { type: DynamicControlType.Text } },
+    { title: 'Betrag Netto', controlName: 'netto', controlModel: { type: DynamicControlType.Text } },
+    { title: 'USt', controlName: 'ust', controlModel: { type: DynamicControlType.Text } },
+    { title: 'errechnete?', controlName: 'calculatedUst', controlModel: { type: DynamicControlType.Text } },
+    { title: 'Betrag Brutto', controlName: 'brutto', controlModel: { type: DynamicControlType.Text } },
+    { title: 'Steuern Stimmen?', controlName: 'isUstCorrect', controlModel: { type: DynamicControlType.Text } },
+  ]
+
   public form: FormArray<FormGroup<UsageRowFormModel>> = new FormArray<FormGroup<UsageRowFormModel>>([], CustomValidators.childrenValid);
 
   public ngOnInit() {

@@ -1,0 +1,5 @@
+<td>
+    <qab-dynamic-control *ngFor="let column of tableColumnData" [model]="column.controlModel"
+        [control]="form.contol[column.controlName]"></qab-dynamic-control>
+</td>
+<td><button (click)="this.remove.emit()">Zeile Löschen</button></td>
