@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UsageTableNewComponent } from './usage-table-new.component';
+import { UsageTableComponent } from './usage-table.component';
 
 describe('UsageTableNewComponent', () => {
-  let component: UsageTableNewComponent;
-  let fixture: ComponentFixture<UsageTableNewComponent>;
+  let component: UsageTableComponent;
+  let fixture: ComponentFixture<UsageTableComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UsageTableNewComponent]
+      declarations: [UsageTableComponent]
     });
-    fixture = TestBed.createComponent(UsageTableNewComponent);
+    fixture = TestBed.createComponent(UsageTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

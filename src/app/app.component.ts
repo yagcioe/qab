@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { SummaryModel } from './summary/summary.model';
+import { UsageTableComponent } from './usage-table/usage-table.component';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'qab';
+
+  @ViewChild(UsageTableComponent) public usageTable: UsageTableComponent | null = null;
+
+  protected usageSummary(): SummaryModel[] {
+    if (!this.usageTable) return []
+    return this.usageTable.getSummary();
+  }
 }

@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { merge } from 'rxjs';
 import { TableColumnModel } from '../shared/components/table/table-column.model';
+import { TableComponent } from '../shared/components/table/table.component';
 import { DynamicControlType } from '../shared/controls/dynamic-control/dynamic-control-type.enum';
+import { Ust } from '../shared/enums/ust.enum';
 import { CustomValidators } from '../shared/utils/cusotm-validators';
 import { FinanceUtil } from '../shared/utils/finance.util';
+import { SummaryModel } from '../summary/summary.model';
 import { UsageRowFormModel, UsageRowModel } from './usage-row.model';
 
 @Component({
-  selector: 'qab-usage-table-new',
-  templateUrl: './usage-table-new.component.html',
-  styleUrls: ['./usage-table-new.component.scss']
+  selector: 'qab-usage-table',
+  templateUrl: './usage-table.component.html',
+  styleUrls: ['./usage-table.component.scss']
 })
-export class UsageTableNewComponent {
+export class UsageTableComponent {
+
+  @ViewChild(TableComponent) public table!: TableComponent<UsageRowModel, UsageRowFormModel>;
 
   protected tableData: TableColumnModel<UsageRowModel>[] = [
     { title: 'Was?', controlName: 'was', controlModel: { type: DynamicControlType.Text } },
@@ -21,13 +26,17 @@ export class UsageTableNewComponent {
     {
       title: 'USt', controlName: 'ust', controlModel: {
         type: DynamicControlType.Dropdown,
-        dropdownData: [{ key: 0, value: "0%" }, { key: 0.07, value: "7%" }, { key: 0.19, value: "19%" }]
+        dropdownData: [{ key: Ust.Zero, value: "0%" }, { key: Ust.Seven, value: "7%" }, { key: Ust.Nineteen, value: "19%" }]
       }
     },
     { title: 'errechnete?', controlName: 'calculatedUst', controlModel: { type: DynamicControlType.Number } },
     { title: 'Betrag Brutto', controlName: 'brutto', controlModel: { type: DynamicControlType.Number } },
     { title: 'Steuern Stimmen?', controlName: 'isUstCorrect', controlModel: { type: DynamicControlType.Checkbox } },
   ]
+
+  public getSummary(): SummaryModel[] {
+    return this.table.formArray.getRawValue().map(raw => { return { ust: +(raw.ust ?? 0), netto: +(raw.netto ?? 0) } })
+  }
 
   protected formGroupFactory = this.createFormGroup.bind(this)
 
@@ -75,7 +84,6 @@ export class UsageTableNewComponent {
         const ust = form.controls.ust.getRawValue();
         const netto = form.controls.netto.getRawValue();
         const brutto = form.controls.brutto.getRawValue();
-        console.log("change");
         if (ust !== null && netto !== null) {
           form.controls.calculatedUst.patchValue(FinanceUtil.calcUstNominalFromNetto(netto, ust))
           return;

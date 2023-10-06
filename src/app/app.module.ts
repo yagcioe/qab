@@ -17,7 +17,9 @@ import { DropdownComponent } from './shared/controls/dropdown/dropdown.component
 import { DynamicControlComponent } from './shared/controls/dynamic-control/dynamic-control.component';
 import { InputComponent } from './shared/controls/input/input.component';
 import { RadioButtonGroupComponent } from './shared/controls/radio-button-group/radio-button-group.component';
-import { UsageTableNewComponent } from './usage-table-new/usage-table-new.component';
+import { UsageTableComponent } from './usage-table/usage-table.component';
+import { DriveTableComponent } from './drive-table/drive-table.component';
+import { SummaryComponent } from './summary/summary.component';
 
 
 @NgModule({
@@ -31,7 +33,10 @@ import { UsageTableNewComponent } from './usage-table-new/usage-table-new.compon
     DynamicControlComponent,
     TableComponent,
     TableRowComponent,
-    UsageTableNewComponent],
+    UsageTableComponent,
+    DriveTableComponent,
+    SummaryComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
