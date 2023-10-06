@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { UsageTableComponent } from './usage-table/usage-table.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +7,4 @@ import { UsageTableComponent } from './usage-table/usage-table.component';
 })
 export class AppComponent {
   title = 'qab';
-
-  @ViewChild(UsageTableComponent) table!: UsageTableComponent;
-
-  protected onClick(): void {
-    console.log(this.table.form.getRawValue(), this.table.form.valid);
-
-  }
-
 }

@@ -6,3 +6,7 @@ export type FormGroupModel<T> = {
     T[key] extends Array<infer Inner> ? (Inner extends AbstractControl<any, any> ? FormArray<Inner> : FormControl<T[key] | null>)
     : FormControl<T[key] | null>
 }
+
+export type FlatFormGroupModel<T> = {
+    [key in keyof T]: FormControl<T[key] | null>
+}

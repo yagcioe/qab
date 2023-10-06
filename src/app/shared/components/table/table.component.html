@@ -1,11 +1,14 @@
 <button (click)="addRow()">Zeile hinzufügen</button>
 <table>
-    <tr>
-        <th *ngFor="let model in tableColumnData">
-            {{model.title}}
-        </th>
-    </tr>
+    <thead>
+        <tr>
+            <th *ngFor="let model of tableColumnData">
+                {{model.title}}
+            </th>
+        </tr>
+    </thead>
     <tbody>
-        <tr usage-row *ngFor="let control of form.controls, index as i" [form]="control" (remove)="removeRow(i)"></tr>
+        <tr table-row *ngFor="let formGroup of formArray.controls, index as i" [tableColumnData]="tableColumnData"
+            [form]="formGroup" (remove)="removeRow(i)"></tr>
     </tbody>
 </table>

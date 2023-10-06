@@ -1,34 +1,35 @@
 import { Component, Input } from '@angular/core';
-import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
-import { FormGroupModel } from '../../form-group.model';
+import { FormArray, FormGroup } from '@angular/forms';
+import { FlatFormGroupModel } from '../../form-group.model';
 import { CustomValidators } from '../../utils/cusotm-validators';
 import { TableColumnModel } from './table-column.model';
 
 @Component({
   selector: 'qab-table',
-  templateUrl: './qab-table.component.html',
-  styleUrls: ['./qab-table.component.scss']
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss']
 })
-export class TableComponent<TModel, TFormModel extends AbstractControl = FormGroup<FormGroupModel<TModel>>> {
+export class TableComponent<TModel, TFormModel extends FlatFormGroupModel<TModel>> {
 
-  @Input({ required: true }) formGroupFactory!: () => TFormModel;
-  @Input({ required: true }) tableColumnData!: TableColumnModel<any, TFormModel>[];
+  @Input({ required: true }) formGroupFactory!: () => FormGroup<TFormModel>;
+  @Input({ required: true }) tableColumnData!: TableColumnModel<TModel>[];
 
-  public form = new FormArray<TFormModel>([], CustomValidators.childrenValid);
+  public formArray = new FormArray<FormGroup<TFormModel>>([], CustomValidators.childrenValid);
 
   public ngOnInit() {
     this.addRow();
+    console.log(this.tableColumnData);
   }
 
   protected addRow() {
     const group = this.formGroupFactory();
 
-    this.form.controls.push(group);
-    this.form.updateValueAndValidity();
+    this.formArray.controls.push(group);
+    this.formArray.updateValueAndValidity();
   }
 
   protected removeRow(index: number) {
-    this.form.controls.splice(index, 1);
-    this.form.updateValueAndValidity();
+    this.formArray.controls.splice(index, 1);
+    this.formArray.updateValueAndValidity();
   }
 }
