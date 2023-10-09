@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Ust } from '../shared/enums/ust.enum';
 import { FinanceUtil } from '../shared/utils/finance.util';
-import { SummaryModel } from './summary.model';
+import { DriveSummaryModel, SummaryModel } from './summary.model';
 
 @Component({
   selector: 'qab-summary',
@@ -11,13 +11,14 @@ import { SummaryModel } from './summary.model';
 export class SummaryComponent {
 
   @Input() public summaries: SummaryModel[] = []
+  @Input() public driveSummaries: DriveSummaryModel[] = []
 
   protected get netto(): number {
     return FinanceUtil.sum(this.summaries.map(summary => summary.netto))
   }
 
   protected get brutto(): number {
-    return FinanceUtil.sum(this.summaries.map(summary => FinanceUtil.calcBrutto(summary.netto, summary.ust)))
+    return FinanceUtil.sum(this.summaries.map(summary => FinanceUtil.calcBrutto(summary.netto, summary.ust))) + FinanceUtil.sum(this.driveSummaries.map(summary => summary.betrag))
   }
 
   protected get nineteen(): number {

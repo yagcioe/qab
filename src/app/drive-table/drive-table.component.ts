@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { merge } from 'rxjs';
 import { TableColumnModel } from '../shared/components/table/table-column.model';
+import { TableComponent } from '../shared/components/table/table.component';
 import { DynamicControlType } from '../shared/controls/dynamic-control/dynamic-control-type.enum';
 import { CustomValidators } from '../shared/utils/cusotm-validators';
 import { FinanceUtil } from '../shared/utils/finance.util';
+import { DriveSummaryModel } from '../summary/summary.model';
 import { UsageRowFormModel } from '../usage-table/usage-row.model';
 import { DriveRowFormModel, DriveRowModel } from './drive-row.model';
 
@@ -24,7 +26,17 @@ export class DriveTableComponent {
     }
   ]
 
+  @ViewChild(TableComponent) public table: TableComponent<DriveRowModel, DriveRowFormModel> | null = null;
+
+
+  protected readonly FinanceUtils = FinanceUtil;
+
   protected formGroupFactory = this.createFormGroup.bind(this)
+
+  public getSummary(): DriveSummaryModel[] {
+    if (!this.table) return [];
+    return this.table.formArray.getRawValue().map(model => { return { betrag: model.betrag ?? 0 } })
+  }
 
   protected createFormGroup(): FormGroup<DriveRowFormModel> {
     const group = new FormGroup<DriveRowFormModel>({

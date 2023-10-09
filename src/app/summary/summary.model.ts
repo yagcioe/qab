@@ -5,3 +5,7 @@ export interface SummaryModel {
     ust: Ust,
 }
 
+export interface DriveSummaryModel {
+    betrag: number,
+}
+

@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { SummaryModel } from './summary/summary.model';
+import { DriveTableComponent } from './drive-table/drive-table.component';
+import { DriveSummaryModel, SummaryModel } from './summary/summary.model';
 import { UsageTableComponent } from './usage-table/usage-table.component';
 
 @Component({
@@ -10,9 +11,15 @@ import { UsageTableComponent } from './usage-table/usage-table.component';
 export class AppComponent {
 
   @ViewChild(UsageTableComponent) public usageTable: UsageTableComponent | null = null;
+  @ViewChild(DriveTableComponent) public driveTable: DriveTableComponent | null = null;
 
   protected usageSummary(): SummaryModel[] {
     if (!this.usageTable) return []
     return this.usageTable.getSummary();
+  }
+
+  protected driveSummary(): DriveSummaryModel[] {
+    if (!this.driveTable) return []
+    return this.driveTable.getSummary();
   }
 }

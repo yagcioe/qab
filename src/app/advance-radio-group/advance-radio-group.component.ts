@@ -9,7 +9,7 @@ import { Advance } from '../shared/enums/advance.enum';
   styleUrls: ['./advance-radio-group.component.scss']
 })
 export class AdvanceRadioGroupComponent {
-  protected data: KeyValue<Advance, string>[] = [{ key: Advance.No, value: "Kein Vorschuss" }, { key: Advance.Cash, value: "Vorschuss aus Kasse" }, { key: Advance.Credit, value: "Solde Kreditkarte" }]
+  protected data: KeyValue<Advance, string>[] = [{ key: Advance.No, value: "Kein Vorschuss" }, { key: Advance.Cash, value: "Vorschuss aus Kasse" }, { key: Advance.Credit, value: "Soldo Kreditkarte" }]
 
   protected selectionControl = new FormControl<Advance | null>(null);
 }
